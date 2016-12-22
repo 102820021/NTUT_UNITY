@@ -4,15 +4,17 @@ using System.Collections;
 public class Meteorite : Enemy
 {
     public GameObject m_meteorite;
-    public int m_touchedUpperLimit;
+    public TextMesh m_leaveTimes;
 
     override public void StartTouching(float x, float y)
     {
-        m_touchTime ++;
+        int time = System.Int32.Parse(m_leaveTimes.text);
+        time--;
         SetFingerPosition(x, y);
-        if(m_touchTime >= m_touchedUpperLimit)
+        m_leaveTimes.text = time.ToString();
+        if (time <= 0)
         {
-            SetActive(false);
+            Destroy(this.transform.parent.gameObject);
         }
     }
 

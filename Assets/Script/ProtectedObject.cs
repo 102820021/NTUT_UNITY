@@ -5,14 +5,17 @@ public class ProtectedObject : MonoBehaviour {
     public GameObject m_protectedObject;
     public Menu m_menu;
     private bool isMoving = true;
-	// Use this for initialization
-	void Start () {
+    private float m_moveY = 0.01f;
+    private float lastTime = 0f;
+    // Use this for initialization
+    void Start () {
         m_menu = GameObject.FindGameObjectsWithTag("Menu")[0].GetComponent<Menu>();
     }
 	
 	// Update is called once per frame
 	void Update () {
         Move();
+        SetMoveY();
     }
 
     void OnTriggerEnter(Collider other)
@@ -34,6 +37,15 @@ public class ProtectedObject : MonoBehaviour {
     void Move()
     {
         if(isMoving)
-            m_protectedObject.transform.position = new Vector3(m_protectedObject.transform.position.x, m_protectedObject.transform.position.y + 0.01f, m_protectedObject.transform.position.z);
+            m_protectedObject.transform.position = new Vector3(m_protectedObject.transform.position.x, m_protectedObject.transform.position.y + m_moveY, m_protectedObject.transform.position.z);
+    }
+
+    public void SetMoveY()
+    {
+        if(Time.time - lastTime >= 10)
+        {
+            lastTime = Time.time;
+            m_moveY += 0.005f;
+        }
     }
 }

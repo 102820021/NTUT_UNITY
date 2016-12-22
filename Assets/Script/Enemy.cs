@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour {
     protected float m_lastFingerPositionY;
     protected Vector2 m_fingerMoving;
     protected int m_touchTime;
+    public int m_touchedUpperLimit;
     // Use this for initialization
     void Start () {
         m_touchTime = 0;
