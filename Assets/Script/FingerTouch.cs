@@ -5,12 +5,11 @@ using UnityEngine.UI;
 
 public class FingerTouch : MonoBehaviour {
     public GameObject m_fingerPosition;
+    public int m_fingerNumber = 2;
     private List<GameObject> m_fingerObject;
     Vector2 m_screenPos = new Vector2();
     private float m_fieldPositionZ = 10f;
     private float m_fieldFarPositionZ = 100f;
-    private float m_fingerPositionX;
-    private float m_fingerPositionY;
 	// Use this for initialization
 	void Start () {
         Input.multiTouchEnabled = true;
@@ -19,34 +18,41 @@ public class FingerTouch : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        /*
+        
         #if !UNITY_EDITOR && (UNITY_IOS || UNITY_ANDROID)
                 MobileInput ();
         #else
                 DesktopInput();
         #endif
-        */
-        MobileInput();
     }
 
     public void DesktopInput()
     {
-/*        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
-            Input
+            Vector3 mousePositionOnNearPlane = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, m_fieldPositionZ));
+            GameObject newObject = (GameObject)Instantiate(m_fingerPosition, mousePositionOnNearPlane, Quaternion.identity);
+            m_fingerObject.Add(newObject);
         }
-
-        if (Input.GetMouseButtonUp(0))
+        else if (Input.GetMouseButton(0))
         {
-            
-        }*/
+            Vector3 mousePositionOnNearPlane = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, m_fieldPositionZ));
+            GameObject oldObject = m_fingerObject[0];
+            FingerPosition script = oldObject.GetComponent<FingerPosition>();
+            script.SetPosition(mousePositionOnNearPlane);
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            Destroy(m_fingerObject[0]);
+            m_fingerObject.RemoveAt(0);
+        }
     }
 
     public void MobileInput()
     {
         int length = Input.touchCount;
 
-        for (int i = 0; i < length; i++)
+        for (int i = 0; i < length && i < m_fingerNumber; i++)
         {
             int id = Input.touches[i].fingerId;
             Vector3 mousePositionOnNearPlane = Camera.main.ScreenToWorldPoint(new Vector3(Input.touches[i].position.x, Input.touches[i].position.y, m_fieldPositionZ));
