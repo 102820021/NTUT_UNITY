@@ -3,7 +3,7 @@ using System.Collections;
 
 public class EnemyGroup : MonoBehaviour {
     public GameObject m_meteorite;
-    public TextMesh m_leaveTimes;
+    private int m_leaveTimes;
     private float m_leftPosition;
     private float m_rightPosition;
     private float m_move;
@@ -41,7 +41,8 @@ public class EnemyGroup : MonoBehaviour {
     {
         m_leftPosition = position1;
         m_rightPosition = position2;
-        m_leaveTimes.text = time.ToString();
+        m_leaveTimes = time;
+        m_meteorite.GetComponent<Meteorite>().SetTimes(time);
         m_move = (m_rightPosition - m_leftPosition) * Time.deltaTime * 0.5f;
 //        Debug.Log(m_move + "*" + Time.deltaTime);
     }

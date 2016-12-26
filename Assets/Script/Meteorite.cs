@@ -4,17 +4,21 @@ using System.Collections;
 public class Meteorite : Enemy
 {
     public GameObject m_meteorite;
-    public TextMesh m_leaveTimes;
+    public Material[] m_materials;
+    public int m_leaveTimes;
 
     override public void StartTouching(float x, float y)
     {
-        int time = System.Int32.Parse(m_leaveTimes.text);
-        time--;
+        m_leaveTimes--;
         SetFingerPosition(x, y);
-        m_leaveTimes.text = time.ToString();
-        if (time <= 0)
+        if (m_leaveTimes <= 0)
         {
             Destroy(this.transform.parent.gameObject);
+        }
+        else
+        {
+            Debug.Log("*" + m_leaveTimes);
+            SetMaterial();
         }
     }
 
@@ -36,5 +40,17 @@ public class Meteorite : Enemy
     public void SetActive(bool active)
     {
         m_meteorite.SetActive(active);
+    }
+
+    public void SetTimes(int times)
+    {
+        m_leaveTimes = times;
+        SetMaterial();
+    }
+
+    public void SetMaterial()
+    {
+        Debug.Log(m_touchTime);
+        this.GetComponent<Renderer>().material = m_materials[m_leaveTimes - 1];
     }
 }
