@@ -26,23 +26,13 @@ public class CreateEnemy : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Move();
-        SetMoveY();
         UpdateVariety();
         CreateEnemyGroup();
     }
 
     void Move()
     {
-        m_upperEdge.transform.position = new Vector3(m_upperEdge.transform.position.x, m_upperEdge.transform.position.y + m_moveY, m_upperEdge.transform.position.z);
-    }
 
-    public void SetMoveY()
-    {
-        if(Time.time - lastTime >= 10)
-        {
-            lastTime = Time.time;
-            m_moveY += 0.005f;
-        }
     }
 
     public void CreateEnemyGroup()

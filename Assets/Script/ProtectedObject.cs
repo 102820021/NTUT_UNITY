@@ -15,7 +15,6 @@ public class ProtectedObject : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Move();
-        SetMoveY();
     }
 
     void OnTriggerEnter(Collider other)
@@ -36,16 +35,7 @@ public class ProtectedObject : MonoBehaviour {
 
     void Move()
     {
-        if(isMoving)
-            m_protectedObject.transform.position = new Vector3(m_protectedObject.transform.position.x, m_protectedObject.transform.position.y + m_moveY, m_protectedObject.transform.position.z);
-    }
-
-    public void SetMoveY()
-    {
-        if(Time.time - lastTime >= 10)
-        {
-            lastTime = Time.time;
-            m_moveY += 0.005f;
-        }
+//        if(isMoving)
+//            m_protectedObject.transform.position = new Vector3(m_protectedObject.transform.position.x, m_protectedObject.transform.position.y + m_moveY, m_protectedObject.transform.position.z);
     }
 }
