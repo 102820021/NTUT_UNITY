@@ -44,6 +44,5 @@ public class EnemyGroup : MonoBehaviour {
         m_leaveTimes = time;
         m_meteorite.GetComponent<Meteorite>().SetTimes(time);
         m_move = (m_rightPosition - m_leftPosition) * Time.deltaTime * 0.5f;
-//        Debug.Log(m_move + "*" + Time.deltaTime);
     }
 }
