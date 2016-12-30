@@ -38,7 +38,7 @@ public class EnemyGroup : MonoBehaviour {
         this.transform.position = new Vector3(position, this.transform.position.y - m_moveY, this.transform.position.z);
     }
 
-    public void SetState(float position1, float position2, int time, float weights)
+    public void SetState(float position1, float position2, int time)
     {
         m_leftPosition = position1;
         m_rightPosition = position2;
